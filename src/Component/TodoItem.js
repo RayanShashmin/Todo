@@ -1,18 +1,31 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import {RiCloseCircleLine} from "react-icons/ri"
-import {BiCheckCircle} from "react-icons/bi"
+
 
 
 export default function TodoItem(props) {
-const {todo,removeTodo,completeTodo,importantTodo}=props
+  const { todo, removeTodo } = props;
+const [isClicked, setIsClicked] = useState(false);
+
+  const handleRemoveClick = () => {
+    removeTodo(todo.id);
+  };
+
+  const handleIconClick = () => {
+    setIsClicked(true);
+    handleRemoveClick();
+  };
+
 
   return (
     <div className={todo.completed ? "todo-row complete": "todo-row"}>
       {todo.text}
         <div className="iconsContaine">
-          <button onClick={()=>importantTodo(todo.id)}className='important-btn'>!</button>
-            <RiCloseCircleLine style={{marginRight:5}} onClick={()=>removeTodo(todo.id)}/>
-            <BiCheckCircle onClick ={()=> completeTodo(todo.id)}/>
+          
+            <RiCloseCircleLine style={{marginRight:8,color: isClicked ? 'red' : 'red'}} 
+            onClick={handleIconClick}
+            />
+            
         </div>
     </div>
   )
